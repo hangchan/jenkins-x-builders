@@ -2,7 +2,7 @@
 WORKDIR /home/jenkins
 
 # Docker
-RUN curl -f https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar xvz && \
+RUN curl -f https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION-ce.tgz | tar xvz && \
   mv docker/docker /usr/bin/ && \
   rm -rf docker
 

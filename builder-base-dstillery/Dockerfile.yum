@@ -5,12 +5,7 @@ RUN yum install -y epel-release && \
   wget \
   zip \
   bzip2 \
-  python-pip \
-  rpm-build \
-  libaio.x86_64 \
-  libaio.i686 \
-  numactl-libs.x86_64 \
-  numactl-libs.i686
+  python-pip
 
 RUN pip install anchorecli 
 

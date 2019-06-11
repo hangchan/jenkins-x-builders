@@ -34,18 +34,21 @@ retry() {
 export VERSION=$1
 export RELEASE=$2
 
-export PUSH_LATEST=true
+export PUSH_LATEST=false
 #export CACHE=--no-cache
 export CACHE=""
 
-export DOCKER_REGISTRY=docker.io
+export DOCKER_REGISTRY=registry.dstillery.com
+export DOCKER_ORG=hang
+export PUSH=true
 
 pushd builder-base
   ./build.sh
 popd
 
 ## newman depends on nodejs, so order is important
-BUILDERS="dlang go go-maven gradle gradle4 gradle5 maven maven-java11 maven-nodejs maven-32 nodejs nodejs8x nodejs10x newman aws-cdk python python2 python37 rust scala terraform"
+#BUILDERS="dlang go go-maven gradle gradle4 gradle5 maven maven-java11 maven-nodejs maven-32 nodejs nodejs8x nodejs10x newman aws-cdk python python2 python37 rust scala terraform"
+BUILDERS="maven maven-java9 maven-java11 python go go-maven mysql"
 BROKEN="dotnet"
 ## now loop through the above array
 for i in $BUILDERS
@@ -68,7 +71,7 @@ do
   pushd builder-${i}
     head -n 1 Dockerfile
     echo "Building ${DOCKER_REGISTRY}/${DOCKER_ORG}/builder-${i}:${VERSION}"
-    retry 3 skaffold build -f skaffold.yaml
+    #retry 3 skaffold build -f skaffold.yaml
   popd
 done
 
